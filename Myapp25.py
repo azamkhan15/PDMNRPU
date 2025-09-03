@@ -20,6 +20,7 @@ import matplotlib.pyplot as plt
 import time
 import platform
 from pathlib import Path
+from keras.models import load_model
 
 # Optional model import, protected by try/except at runtime
 try:
@@ -33,8 +34,9 @@ logger = logging.getLogger("Myapp25")
 
 # ---------------- Configuration ----------------
 CSV_PATH = Path("simulated_wind_turbine_data_with_noise2.csv")
-MODEL_PATH = "cnn_lstm_wind_turbine_rul.keras"
+MODEL_PATH = "cnn_lstm_wind_turbine_rul.h5"
 
+model = load_model(MODEL_PATH, compile=False)
 EMA_ALPHA = 0.25
 SEQUENCE_LENGTH = 10
 GRAPH_UPDATE_STEP = 3
