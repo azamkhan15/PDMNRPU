@@ -1,9 +1,11 @@
-streamlit==1.28.2
+--upgrade --force-reinstall
+
+streamlit==1.48.1
 numpy==1.24.3
-pandas==2.0.3
-matplotlib==3.7.2
+pandas==2.3.2
+matplotlib==3.10.5
 tensorflow==2.13.1
-keras==2.13.1
-shap==0.42.1
+shap==0.48.0
 setuptools==70.0.0
 wheel==0.41.2
+
