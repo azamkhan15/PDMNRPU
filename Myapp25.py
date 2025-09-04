@@ -22,6 +22,11 @@ import platform
 from pathlib import Path
 from keras.models import load_model
 
+# --- APPEND ONLY: suppress noisy TF/Keras warnings (keeps logs clean, no behavior change) ---
+import warnings
+warnings.filterwarnings("ignore", message="No training configuration found in the save file")
+warnings.filterwarnings("ignore", message="Compiled the loaded model")
+
 # Optional model import, protected by try/except at runtime
 try:
     from tensorflow.keras.models import load_model  # type: ignore
@@ -452,6 +457,8 @@ while st.session_state.running and st.session_state.idx < len(df):
                     axs[j].axis("off")
                 plt.tight_layout()
                 st.pyplot(fig)
+                # --- APPEND ONLY: close figure after rendering to avoid "too many open figures" ---
+                plt.close(fig)
         with placeholder_rul.container():
             if show_rul_graph:
                 st.markdown("<h4>Predicted RUL over Time</h4>", unsafe_allow_html=True)
@@ -461,6 +468,8 @@ while st.session_state.running and st.session_state.idx < len(df):
                 ax_rul.set_xlabel("Time Step")
                 ax_rul.grid(True, linestyle="--", alpha=0.3)
                 st.pyplot(fig_rul)
+                # --- APPEND ONLY: close figure after rendering ---
+                plt.close(fig_rul)
 
     # ---------------- Beep (unchanged behavior) ----------------
     if st.session_state.ema["rul"] <= BEEP_RUL:
